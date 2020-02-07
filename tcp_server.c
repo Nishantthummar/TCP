@@ -24,23 +24,30 @@ int main(int argc, char *argv[])
 	serverAddr.sin_family = AF_INET;
 	serverAddr.sin_port = htons(PORT);
 	serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-	
+	while (1){	
 	bind(sockfd, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
 	listen(sockfd, 5);
 
 	addr_size = sizeof(newAddr);
 	newsocket = accept(sockfd, (struct sockaddr*)&newAddr, &addr_size);
-	strcpy(msg, "Connected!!");
-	send(newsocket, msg, strlen(msg), 0);
+	strcpy(msg, "Connected");
+	int sflag;
+	sflag =	send(newsocket, msg, strlen(msg), 0);
+	printf("\nsflag is %d", sflag);
 	printf("\nSend connected msg.");
-
-	recv(newsocket, buf, strlen(buf), 0);
 	
-	for (i=0; buf[i] != '\0'; i++) {
-		send_msg[i] = toupper(buf[i]);
-	}
+	int flag;
+	flag = recv(newsocket, buf, 1024, 0);
+	printf("\nFlag value is %d", flag);
 
-	send(newsocket, send_msg, strlen(send_msg), 0);
+	for (i=0; i < flag; i++) {
+		send_msg[i] = toupper(buf[i]);
+		//printf("%c", send_msg[i]);
+	}
+	int s1;
+	s1 = send(newsocket, send_msg, flag, 0);
+	printf("\ns1 is %d", s1);
+	}
 }
 
 		
