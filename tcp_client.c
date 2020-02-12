@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 
 #define PORT 8080
+#define MAX 100000
 
 int main(int argc, char *argv[])
 {
@@ -22,8 +23,8 @@ int main(int argc, char *argv[])
 	struct sockaddr_in clientAddr;
 	socklen_t addr_size;
 	char reciv[100];
-	char buf[10240];
-	char fbuf[10240];
+	char buf[MAX];
+	char fbuf[MAX];
 	FILE *fin, *fout;
 	char c;
 	int i=0;
